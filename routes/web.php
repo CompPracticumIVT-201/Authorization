@@ -1,18 +1,28 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Маршрут для входа пользователя
+Route::get('/login', 'App\Http\Controllers\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Маршрут для выхода пользователя
+Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
+
+
+Route::view('/main', "main")->name('main');
+Route::view('/home', 'home')->middleware('auth')->name('home');
+Route::view('/login', 'login')->middleware('guest')->name('login');
+Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
+
+
+Route::get('/password/reset', 'App\Http\Controllers\ResetPasswordController@showResetForm')->name('password.request');
+Route::post('/password/reset', 'App\Http\Controllers\ResetPasswordController@reset')->name('password.update');
+
+Route::get('/forgot-password', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'create'])->middleware('guest')->name('password.request_email');
+Route::post('/forgot-password', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'store'])->middleware('guest')->name('password.email');
+
+Route::get('reset-password-email', [\App\Http\Controllers\Auth\ResetPasswordEmailController::class, 'create'])->middleware('guest')->name('password.reset');
+Route::post('reset-password-email', [\App\Http\Controllers\Auth\ResetPasswordEmailController::class, 'store'])->middleware('guest')->name('password.update_email');
+
