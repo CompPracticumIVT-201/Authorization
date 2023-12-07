@@ -2,7 +2,7 @@
 
 @section('content')
     @if (auth()->check())
-        <p>Hello, {{ auth()->user()->name }}</p>
+        <p>Hello, {{ auth()->user()->login }}</p>
         <p>Email: {{ auth()->user()->email }}</p>
         <p><a href="{{ route('password.request') }}">Сбросить пароль</a></p>
     @else

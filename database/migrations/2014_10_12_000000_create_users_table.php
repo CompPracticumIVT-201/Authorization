@@ -20,15 +20,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-<<<<<<< HEAD
         // Добавляем поле для мягкого удаления
         Schema::table('users', function (Blueprint $table) {
             $table->softDeletes();
-=======
-            Schema::table('users', function (Blueprint $table) {
-                $table->softDeletes(); // Добавляем поле для мягкого удаления
-            });
->>>>>>> b660dffaa6957ff367b848c293c400663f109bdb
         });
     }
 

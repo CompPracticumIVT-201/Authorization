@@ -13,7 +13,6 @@ class ForgotPasswordController extends Controller
     {
         return view('email');
     }
-ё
     // Отправка ссылки на сброс пароля
     public function sendResetLinkEmail(Request $request)
     {
