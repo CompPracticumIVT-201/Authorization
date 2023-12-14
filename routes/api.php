@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VerifyEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/authors', "AuthorController@index")->name('author.index');
+Route::get('/categories', "CategoryController@index")->name('category.index');
+Route::post('/register', "RegisterController@store")->middleware('guest')->name('register.store');
+Route::get('/user/login/{login}', "UserController@checkLoginFree");
+Route::get('/user/email/{email}', "UserController@checkEmailFree");
+
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['signed'])
+    ->name('verification.verify');

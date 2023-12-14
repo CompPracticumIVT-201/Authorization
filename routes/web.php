@@ -15,6 +15,7 @@ Route::view('/main', "main")->name('main');
 Route::view('/home', 'home')->middleware('auth')->name('home');
 Route::view('/login', 'login')->middleware('guest')->name('login');
 Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
+Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
 
 
 Route::get('/password/reset', 'App\Http\Controllers\ResetPasswordController@showResetForm')->name('password.request');
